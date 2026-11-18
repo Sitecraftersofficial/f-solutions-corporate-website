@@ -9,27 +9,226 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as SiteRouteImport } from './routes/_site'
+import { Route as SiteIndexRouteImport } from './routes/_site/index'
+import { Route as SiteAboutRouteImport } from './routes/_site/about'
+import { Route as SiteAgrovetRouteImport } from './routes/_site/agrovet'
+import { Route as SiteContactRouteImport } from './routes/_site/contact'
+import { Route as SiteHumanHealthRouteImport } from './routes/_site/human-health'
+import { Route as SitePartnersRouteImport } from './routes/_site/partners'
+import { Route as SiteQualityRouteImport } from './routes/_site/quality'
+import { Route as SiteProductsSlugRouteImport } from './routes/_site/products.$slug'
 
-export interface FileRoutesByFullPath {}
-export interface FileRoutesByTo {}
+const SiteRoute = SiteRouteImport.update({
+  id: '/_site',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const SiteIndexRoute = SiteIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteAboutRoute = SiteAboutRouteImport.update({
+  id: '/about',
+  path: '/about',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteAgrovetRoute = SiteAgrovetRouteImport.update({
+  id: '/agrovet',
+  path: '/agrovet',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteContactRoute = SiteContactRouteImport.update({
+  id: '/contact',
+  path: '/contact',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteHumanHealthRoute = SiteHumanHealthRouteImport.update({
+  id: '/human-health',
+  path: '/human-health',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SitePartnersRoute = SitePartnersRouteImport.update({
+  id: '/partners',
+  path: '/partners',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteQualityRoute = SiteQualityRouteImport.update({
+  id: '/quality',
+  path: '/quality',
+  getParentRoute: () => SiteRoute,
+} as any)
+const SiteProductsSlugRoute = SiteProductsSlugRouteImport.update({
+  id: '/products/$slug',
+  path: '/products/$slug',
+  getParentRoute: () => SiteRoute,
+} as any)
+
+export interface FileRoutesByFullPath {
+  '/': typeof SiteIndexRoute
+  '/about': typeof SiteAboutRoute
+  '/agrovet': typeof SiteAgrovetRoute
+  '/contact': typeof SiteContactRoute
+  '/human-health': typeof SiteHumanHealthRoute
+  '/partners': typeof SitePartnersRoute
+  '/quality': typeof SiteQualityRoute
+  '/products/$slug': typeof SiteProductsSlugRoute
+}
+export interface FileRoutesByTo {
+  '/about': typeof SiteAboutRoute
+  '/agrovet': typeof SiteAgrovetRoute
+  '/contact': typeof SiteContactRoute
+  '/human-health': typeof SiteHumanHealthRoute
+  '/partners': typeof SitePartnersRoute
+  '/quality': typeof SiteQualityRoute
+  '/': typeof SiteIndexRoute
+  '/products/$slug': typeof SiteProductsSlugRoute
+}
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_site': typeof SiteRouteWithChildren
+  '/_site/about': typeof SiteAboutRoute
+  '/_site/agrovet': typeof SiteAgrovetRoute
+  '/_site/contact': typeof SiteContactRoute
+  '/_site/human-health': typeof SiteHumanHealthRoute
+  '/_site/partners': typeof SitePartnersRoute
+  '/_site/quality': typeof SiteQualityRoute
+  '/_site/': typeof SiteIndexRoute
+  '/_site/products/$slug': typeof SiteProductsSlugRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
-  fullPaths: never
+  fullPaths:
+    | '/'
+    | '/about'
+    | '/agrovet'
+    | '/contact'
+    | '/human-health'
+    | '/partners'
+    | '/quality'
+    | '/products/$slug'
   fileRoutesByTo: FileRoutesByTo
-  to: never
-  id: '__root__'
+  to:
+    | '/about'
+    | '/agrovet'
+    | '/contact'
+    | '/human-health'
+    | '/partners'
+    | '/quality'
+    | '/'
+    | '/products/$slug'
+  id:
+    | '__root__'
+    | '/_site'
+    | '/_site/about'
+    | '/_site/agrovet'
+    | '/_site/contact'
+    | '/_site/human-health'
+    | '/_site/partners'
+    | '/_site/quality'
+    | '/_site/'
+    | '/_site/products/$slug'
   fileRoutesById: FileRoutesById
 }
-export interface RootRouteChildren {}
-
-declare module '@tanstack/react-router' {
-  interface FileRoutesByPath {}
+export interface RootRouteChildren {
+  SiteRoute: typeof SiteRouteWithChildren
 }
 
-const rootRouteChildren: RootRouteChildren = {}
+declare module '@tanstack/react-router' {
+  interface FileRoutesByPath {
+    '/_site': {
+      id: '/_site'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof SiteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_site/': {
+      id: '/_site/'
+      path: '/'
+      fullPath: '/'
+      preLoaderRoute: typeof SiteIndexRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/about': {
+      id: '/_site/about'
+      path: '/about'
+      fullPath: '/about'
+      preLoaderRoute: typeof SiteAboutRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/agrovet': {
+      id: '/_site/agrovet'
+      path: '/agrovet'
+      fullPath: '/agrovet'
+      preLoaderRoute: typeof SiteAgrovetRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/contact': {
+      id: '/_site/contact'
+      path: '/contact'
+      fullPath: '/contact'
+      preLoaderRoute: typeof SiteContactRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/human-health': {
+      id: '/_site/human-health'
+      path: '/human-health'
+      fullPath: '/human-health'
+      preLoaderRoute: typeof SiteHumanHealthRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/partners': {
+      id: '/_site/partners'
+      path: '/partners'
+      fullPath: '/partners'
+      preLoaderRoute: typeof SitePartnersRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/quality': {
+      id: '/_site/quality'
+      path: '/quality'
+      fullPath: '/quality'
+      preLoaderRoute: typeof SiteQualityRouteImport
+      parentRoute: typeof SiteRoute
+    }
+    '/_site/products/$slug': {
+      id: '/_site/products/$slug'
+      path: '/products/$slug'
+      fullPath: '/products/$slug'
+      preLoaderRoute: typeof SiteProductsSlugRouteImport
+      parentRoute: typeof SiteRoute
+    }
+  }
+}
+
+interface SiteRouteChildren {
+  SiteAboutRoute: typeof SiteAboutRoute
+  SiteAgrovetRoute: typeof SiteAgrovetRoute
+  SiteContactRoute: typeof SiteContactRoute
+  SiteHumanHealthRoute: typeof SiteHumanHealthRoute
+  SitePartnersRoute: typeof SitePartnersRoute
+  SiteQualityRoute: typeof SiteQualityRoute
+  SiteIndexRoute: typeof SiteIndexRoute
+  SiteProductsSlugRoute: typeof SiteProductsSlugRoute
+}
+
+const SiteRouteChildren: SiteRouteChildren = {
+  SiteAboutRoute: SiteAboutRoute,
+  SiteAgrovetRoute: SiteAgrovetRoute,
+  SiteContactRoute: SiteContactRoute,
+  SiteHumanHealthRoute: SiteHumanHealthRoute,
+  SitePartnersRoute: SitePartnersRoute,
+  SiteQualityRoute: SiteQualityRoute,
+  SiteIndexRoute: SiteIndexRoute,
+  SiteProductsSlugRoute: SiteProductsSlugRoute,
+}
+
+const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
+
+const rootRouteChildren: RootRouteChildren = {
+  SiteRoute: SiteRouteWithChildren,
+}
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)
   ._addFileTypes<FileRouteTypes>()
