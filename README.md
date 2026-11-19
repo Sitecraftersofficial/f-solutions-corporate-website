@@ -131,12 +131,14 @@ Do not present this division as simply a medicine shop.
 Organize the Human Health catalogue into relevant categories, including:
 
 **A. Pharmaceuticals**
+
 - Prescription medicines.
 - Over-the-counter medicines.
 - Other pharmaceutical products.
 - Pharmaceutical supply and distribution.
 
 **B. Reproductive Health**
+
 - Male condoms.
 - Lubricants.
 - Contraceptives.
@@ -144,6 +146,7 @@ Organize the Human Health catalogue into relevant categories, including:
 - Relevant male and female reproductive health and protection products.
 
 **C. Medical Devices and Diagnostics**
+
 - Blood glucose monitoring devices.
 - HbA1c testing systems.
 - CRP testing systems.
@@ -224,22 +227,26 @@ Use appropriate photographs and illustrations for these farm animals.
 ### Main Agrovet product categories
 
 **A. Veterinary Medicines**
+
 - Veterinary medicines.
 - Animal health treatments.
 - Other relevant veterinary pharmaceutical products.
 
 **B. Vaccines and Disease Prevention**
+
 - Veterinary vaccines.
 - Animal disease prevention products.
 - Farm animal health protection products.
 
 **C. Animal Nutrition**
+
 - Animal feed.
 - Nutritional supplements.
 - Feed-related products.
 - Livestock nutrition solutions.
 
 **D. Farm Health Products**
+
 - Farm animal health products.
 - Poultry health products.
 - Livestock health support products.
@@ -412,12 +419,15 @@ Create a dedicated Our Partners section.
 The company document identifies the following partners:
 
 ### DKT International
+
 Associated with reproductive health products and commodities.
 
 ### ACON Laboratories
+
 Associated with medical diagnostics and in-vitro diagnostic products.
 
 ### WAFI
+
 Associated with Agrovet and animal health products.
 
 Use official partner logos only when supplied by the company or verified from appropriate official sources.
@@ -871,3 +881,5 @@ npm run preview
 ```
 
 Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env.local` to connect the application to Supabase.
+
+For Netlify deployments, add both variables in the site's environment variable settings and redeploy. These are public client configuration values; never expose a Supabase service-role key through a `VITE_` variable.
