@@ -28,3 +28,7 @@ use the editor.
   own key and store it in Secrets.
 - **Secrets.** Lovable manages them. Do not put secret values in the repo.
 <!-- LOVABLE:END -->
+
+- Keep administrator pages under the client-only authenticated layout and verify the admin role before rendering the admin shell; database RLS independently enforces every data action.
+- Share record-management field definitions across administrator modules so editing and upload behavior stays consistent.
+- Use one root auth subscriber for route invalidation; cancel and clear private queries before signing out to prevent stale data exposure.

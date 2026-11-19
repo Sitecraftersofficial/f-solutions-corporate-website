@@ -9,7 +9,10 @@
 // Additionally, you should also exclude this file from your linter and/or formatter to prevent it from being checked or modified.
 
 import { Route as rootRouteImport } from './routes/__root'
+import { Route as AuthenticatedRouteRouteImport } from './routes/_authenticated/route'
 import { Route as SiteRouteImport } from './routes/_site'
+import { Route as AuthRouteImport } from './routes/auth'
+import { Route as AuthenticatedAdminRouteImport } from './routes/_authenticated/admin'
 import { Route as SiteIndexRouteImport } from './routes/_site/index'
 import { Route as SiteAboutRouteImport } from './routes/_site/about'
 import { Route as SiteAgrovetRouteImport } from './routes/_site/agrovet'
@@ -17,11 +20,31 @@ import { Route as SiteContactRouteImport } from './routes/_site/contact'
 import { Route as SiteHumanHealthRouteImport } from './routes/_site/human-health'
 import { Route as SitePartnersRouteImport } from './routes/_site/partners'
 import { Route as SiteQualityRouteImport } from './routes/_site/quality'
+import { Route as AuthenticatedAdminIndexRouteImport } from './routes/_authenticated/admin.index'
+import { Route as AuthenticatedAdminAnimalsRouteImport } from './routes/_authenticated/admin.animals'
+import { Route as AuthenticatedAdminCategoriesRouteImport } from './routes/_authenticated/admin.categories'
+import { Route as AuthenticatedAdminDocumentsRouteImport } from './routes/_authenticated/admin.documents'
+import { Route as AuthenticatedAdminPartnersRouteImport } from './routes/_authenticated/admin.partners'
+import { Route as AuthenticatedAdminProductsRouteImport } from './routes/_authenticated/admin.products'
 import { Route as SiteProductsSlugRouteImport } from './routes/_site/products.$slug'
 
+const AuthenticatedRouteRoute = AuthenticatedRouteRouteImport.update({
+  id: '/_authenticated',
+  getParentRoute: () => rootRouteImport,
+} as any)
 const SiteRoute = SiteRouteImport.update({
   id: '/_site',
   getParentRoute: () => rootRouteImport,
+} as any)
+const AuthRoute = AuthRouteImport.update({
+  id: '/auth',
+  path: '/auth',
+  getParentRoute: () => rootRouteImport,
+} as any)
+const AuthenticatedAdminRoute = AuthenticatedAdminRouteImport.update({
+  id: '/admin',
+  path: '/admin',
+  getParentRoute: () => AuthenticatedRouteRoute,
 } as any)
 const SiteIndexRoute = SiteIndexRouteImport.update({
   id: '/',
@@ -58,6 +81,41 @@ const SiteQualityRoute = SiteQualityRouteImport.update({
   path: '/quality',
   getParentRoute: () => SiteRoute,
 } as any)
+const AuthenticatedAdminIndexRoute = AuthenticatedAdminIndexRouteImport.update({
+  id: '/',
+  path: '/',
+  getParentRoute: () => AuthenticatedAdminRoute,
+} as any)
+const AuthenticatedAdminAnimalsRoute =
+  AuthenticatedAdminAnimalsRouteImport.update({
+    id: '/animals',
+    path: '/animals',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminCategoriesRoute =
+  AuthenticatedAdminCategoriesRouteImport.update({
+    id: '/categories',
+    path: '/categories',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminDocumentsRoute =
+  AuthenticatedAdminDocumentsRouteImport.update({
+    id: '/documents',
+    path: '/documents',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminPartnersRoute =
+  AuthenticatedAdminPartnersRouteImport.update({
+    id: '/partners',
+    path: '/partners',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
+const AuthenticatedAdminProductsRoute =
+  AuthenticatedAdminProductsRouteImport.update({
+    id: '/products',
+    path: '/products',
+    getParentRoute: () => AuthenticatedAdminRoute,
+  } as any)
 const SiteProductsSlugRoute = SiteProductsSlugRouteImport.update({
   id: '/products/$slug',
   path: '/products/$slug',
@@ -66,27 +124,45 @@ const SiteProductsSlugRoute = SiteProductsSlugRouteImport.update({
 
 export interface FileRoutesByFullPath {
   '/': typeof SiteIndexRoute
+  '/auth': typeof AuthRoute
+  '/admin': typeof AuthenticatedAdminRouteWithChildren
   '/about': typeof SiteAboutRoute
   '/agrovet': typeof SiteAgrovetRoute
   '/contact': typeof SiteContactRoute
   '/human-health': typeof SiteHumanHealthRoute
   '/partners': typeof SitePartnersRoute
   '/quality': typeof SiteQualityRoute
+  '/admin/animals': typeof AuthenticatedAdminAnimalsRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/admin/documents': typeof AuthenticatedAdminDocumentsRoute
+  '/admin/partners': typeof AuthenticatedAdminPartnersRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/products/$slug': typeof SiteProductsSlugRoute
+  '/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesByTo {
+  '/': typeof SiteIndexRoute
+  '/auth': typeof AuthRoute
   '/about': typeof SiteAboutRoute
   '/agrovet': typeof SiteAgrovetRoute
   '/contact': typeof SiteContactRoute
   '/human-health': typeof SiteHumanHealthRoute
   '/partners': typeof SitePartnersRoute
   '/quality': typeof SiteQualityRoute
-  '/': typeof SiteIndexRoute
+  '/admin/animals': typeof AuthenticatedAdminAnimalsRoute
+  '/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/admin/documents': typeof AuthenticatedAdminDocumentsRoute
+  '/admin/partners': typeof AuthenticatedAdminPartnersRoute
+  '/admin/products': typeof AuthenticatedAdminProductsRoute
   '/products/$slug': typeof SiteProductsSlugRoute
+  '/admin': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRoutesById {
   __root__: typeof rootRouteImport
+  '/_authenticated': typeof AuthenticatedRouteRouteWithChildren
   '/_site': typeof SiteRouteWithChildren
+  '/auth': typeof AuthRoute
+  '/_authenticated/admin': typeof AuthenticatedAdminRouteWithChildren
   '/_site/about': typeof SiteAboutRoute
   '/_site/agrovet': typeof SiteAgrovetRoute
   '/_site/contact': typeof SiteContactRoute
@@ -94,32 +170,56 @@ export interface FileRoutesById {
   '/_site/partners': typeof SitePartnersRoute
   '/_site/quality': typeof SiteQualityRoute
   '/_site/': typeof SiteIndexRoute
+  '/_authenticated/admin/animals': typeof AuthenticatedAdminAnimalsRoute
+  '/_authenticated/admin/categories': typeof AuthenticatedAdminCategoriesRoute
+  '/_authenticated/admin/documents': typeof AuthenticatedAdminDocumentsRoute
+  '/_authenticated/admin/partners': typeof AuthenticatedAdminPartnersRoute
+  '/_authenticated/admin/products': typeof AuthenticatedAdminProductsRoute
   '/_site/products/$slug': typeof SiteProductsSlugRoute
+  '/_authenticated/admin/': typeof AuthenticatedAdminIndexRoute
 }
 export interface FileRouteTypes {
   fileRoutesByFullPath: FileRoutesByFullPath
   fullPaths:
     | '/'
+    | '/auth'
+    | '/admin'
     | '/about'
     | '/agrovet'
     | '/contact'
     | '/human-health'
     | '/partners'
     | '/quality'
+    | '/admin/animals'
+    | '/admin/categories'
+    | '/admin/documents'
+    | '/admin/partners'
+    | '/admin/products'
     | '/products/$slug'
+    | '/admin/'
   fileRoutesByTo: FileRoutesByTo
   to:
+    | '/'
+    | '/auth'
     | '/about'
     | '/agrovet'
     | '/contact'
     | '/human-health'
     | '/partners'
     | '/quality'
-    | '/'
+    | '/admin/animals'
+    | '/admin/categories'
+    | '/admin/documents'
+    | '/admin/partners'
+    | '/admin/products'
     | '/products/$slug'
+    | '/admin'
   id:
     | '__root__'
+    | '/_authenticated'
     | '/_site'
+    | '/auth'
+    | '/_authenticated/admin'
     | '/_site/about'
     | '/_site/agrovet'
     | '/_site/contact'
@@ -127,21 +227,50 @@ export interface FileRouteTypes {
     | '/_site/partners'
     | '/_site/quality'
     | '/_site/'
+    | '/_authenticated/admin/animals'
+    | '/_authenticated/admin/categories'
+    | '/_authenticated/admin/documents'
+    | '/_authenticated/admin/partners'
+    | '/_authenticated/admin/products'
     | '/_site/products/$slug'
+    | '/_authenticated/admin/'
   fileRoutesById: FileRoutesById
 }
 export interface RootRouteChildren {
+  AuthenticatedRouteRoute: typeof AuthenticatedRouteRouteWithChildren
   SiteRoute: typeof SiteRouteWithChildren
+  AuthRoute: typeof AuthRoute
 }
 
 declare module '@tanstack/react-router' {
   interface FileRoutesByPath {
+    '/_authenticated': {
+      id: '/_authenticated'
+      path: ''
+      fullPath: '/'
+      preLoaderRoute: typeof AuthenticatedRouteRouteImport
+      parentRoute: typeof rootRouteImport
+    }
     '/_site': {
       id: '/_site'
       path: ''
       fullPath: '/'
       preLoaderRoute: typeof SiteRouteImport
       parentRoute: typeof rootRouteImport
+    }
+    '/auth': {
+      id: '/auth'
+      path: '/auth'
+      fullPath: '/auth'
+      preLoaderRoute: typeof AuthRouteImport
+      parentRoute: typeof rootRouteImport
+    }
+    '/_authenticated/admin': {
+      id: '/_authenticated/admin'
+      path: '/admin'
+      fullPath: '/admin'
+      preLoaderRoute: typeof AuthenticatedAdminRouteImport
+      parentRoute: typeof AuthenticatedRouteRoute
     }
     '/_site/': {
       id: '/_site/'
@@ -192,6 +321,48 @@ declare module '@tanstack/react-router' {
       preLoaderRoute: typeof SiteQualityRouteImport
       parentRoute: typeof SiteRoute
     }
+    '/_authenticated/admin/': {
+      id: '/_authenticated/admin/'
+      path: '/'
+      fullPath: '/admin/'
+      preLoaderRoute: typeof AuthenticatedAdminIndexRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/animals': {
+      id: '/_authenticated/admin/animals'
+      path: '/animals'
+      fullPath: '/admin/animals'
+      preLoaderRoute: typeof AuthenticatedAdminAnimalsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/categories': {
+      id: '/_authenticated/admin/categories'
+      path: '/categories'
+      fullPath: '/admin/categories'
+      preLoaderRoute: typeof AuthenticatedAdminCategoriesRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/documents': {
+      id: '/_authenticated/admin/documents'
+      path: '/documents'
+      fullPath: '/admin/documents'
+      preLoaderRoute: typeof AuthenticatedAdminDocumentsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/partners': {
+      id: '/_authenticated/admin/partners'
+      path: '/partners'
+      fullPath: '/admin/partners'
+      preLoaderRoute: typeof AuthenticatedAdminPartnersRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
+    '/_authenticated/admin/products': {
+      id: '/_authenticated/admin/products'
+      path: '/products'
+      fullPath: '/admin/products'
+      preLoaderRoute: typeof AuthenticatedAdminProductsRouteImport
+      parentRoute: typeof AuthenticatedAdminRoute
+    }
     '/_site/products/$slug': {
       id: '/_site/products/$slug'
       path: '/products/$slug'
@@ -201,6 +372,38 @@ declare module '@tanstack/react-router' {
     }
   }
 }
+
+interface AuthenticatedAdminRouteChildren {
+  AuthenticatedAdminAnimalsRoute: typeof AuthenticatedAdminAnimalsRoute
+  AuthenticatedAdminCategoriesRoute: typeof AuthenticatedAdminCategoriesRoute
+  AuthenticatedAdminDocumentsRoute: typeof AuthenticatedAdminDocumentsRoute
+  AuthenticatedAdminPartnersRoute: typeof AuthenticatedAdminPartnersRoute
+  AuthenticatedAdminProductsRoute: typeof AuthenticatedAdminProductsRoute
+  AuthenticatedAdminIndexRoute: typeof AuthenticatedAdminIndexRoute
+}
+
+const AuthenticatedAdminRouteChildren: AuthenticatedAdminRouteChildren = {
+  AuthenticatedAdminAnimalsRoute: AuthenticatedAdminAnimalsRoute,
+  AuthenticatedAdminCategoriesRoute: AuthenticatedAdminCategoriesRoute,
+  AuthenticatedAdminDocumentsRoute: AuthenticatedAdminDocumentsRoute,
+  AuthenticatedAdminPartnersRoute: AuthenticatedAdminPartnersRoute,
+  AuthenticatedAdminProductsRoute: AuthenticatedAdminProductsRoute,
+  AuthenticatedAdminIndexRoute: AuthenticatedAdminIndexRoute,
+}
+
+const AuthenticatedAdminRouteWithChildren =
+  AuthenticatedAdminRoute._addFileChildren(AuthenticatedAdminRouteChildren)
+
+interface AuthenticatedRouteRouteChildren {
+  AuthenticatedAdminRoute: typeof AuthenticatedAdminRouteWithChildren
+}
+
+const AuthenticatedRouteRouteChildren: AuthenticatedRouteRouteChildren = {
+  AuthenticatedAdminRoute: AuthenticatedAdminRouteWithChildren,
+}
+
+const AuthenticatedRouteRouteWithChildren =
+  AuthenticatedRouteRoute._addFileChildren(AuthenticatedRouteRouteChildren)
 
 interface SiteRouteChildren {
   SiteAboutRoute: typeof SiteAboutRoute
@@ -227,7 +430,9 @@ const SiteRouteChildren: SiteRouteChildren = {
 const SiteRouteWithChildren = SiteRoute._addFileChildren(SiteRouteChildren)
 
 const rootRouteChildren: RootRouteChildren = {
+  AuthenticatedRouteRoute: AuthenticatedRouteRouteWithChildren,
   SiteRoute: SiteRouteWithChildren,
+  AuthRoute: AuthRoute,
 }
 export const routeTree = rootRouteImport
   ._addFileChildren(rootRouteChildren)

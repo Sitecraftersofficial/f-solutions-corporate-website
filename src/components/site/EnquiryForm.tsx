@@ -45,7 +45,7 @@ export function EnquiryForm({ productId, productName, division = "general" }: Pr
       <div role="status" className="rounded-lg border border-primary/30 bg-secondary p-8 text-center">
         <CheckCircle2 className="mx-auto size-10 text-primary" />
         <h3 className="mt-3 text-xl font-semibold text-primary-deep">Thank you — your enquiry has been received.</h3>
-        <p className="mt-2 text-muted-foreground">Our team will review it and get back to you by email.</p>
+        <p className="mt-2 text-muted-foreground">Your message is saved for our team to review.</p>
         <Button variant="outline" className="mt-5" onClick={() => setStatus("idle")}>Send another enquiry</Button>
       </div>
     );

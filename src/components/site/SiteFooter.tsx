@@ -4,9 +4,11 @@ import { Mail, MapPin, Phone } from "lucide-react";
 import { contentQuery } from "@/lib/data";
 import { Logo } from "./Logo";
 import { NAV } from "./SiteHeader";
+import { currentUserQuery } from "@/lib/auth";
 
 export function SiteFooter() {
   const { data: c = {} } = useQuery(contentQuery);
+  const { data: user } = useQuery(currentUserQuery);
   return (
     <footer className="border-t border-border bg-muted">
       <div className="container-site grid gap-10 py-14 md:grid-cols-4">
@@ -40,8 +42,9 @@ export function SiteFooter() {
         </div>
       </div>
       <div className="border-t border-border">
-        <div className="container-site py-5 text-xs text-muted-foreground">
+        <div className="container-site flex flex-wrap justify-between gap-3 py-5 text-xs text-muted-foreground">
           © {new Date().getFullYear()} F-Solutions Ltd. All rights reserved.
+          <Link to={user?.isAdmin ? "/admin" : "/auth"} className="hover:text-primary">{user?.isAdmin ? "Admin dashboard" : "Administrator sign in"}</Link>
         </div>
       </div>
     </footer>
