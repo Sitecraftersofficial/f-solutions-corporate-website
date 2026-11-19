@@ -1,4 +1,4 @@
-import { Link } from "@tanstack/react-router";
+import { Link, NavLink } from "react-router-dom";
 import { Menu } from "lucide-react";
 import { useState } from "react";
 import { Button } from "@/components/ui/button";
@@ -25,14 +25,16 @@ export function SiteHeader() {
         </Link>
         <nav className="hidden items-center gap-1 xl:flex" aria-label="Main">
           {NAV.map((n) => (
-            <Link
+            <NavLink
               key={n.to}
               to={n.to}
-              activeOptions={{ exact: n.to === "/" }}
-              className="rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary data-[status=active]:text-primary"
+              end={n.to === "/"}
+              className={({ isActive }) =>
+                `rounded-md px-3 py-2 text-sm font-medium text-foreground/80 transition-colors hover:text-primary ${isActive ? "text-primary" : ""}`
+              }
             >
               {n.label}
-            </Link>
+            </NavLink>
           ))}
         </nav>
         <div className="flex items-center gap-2">
@@ -50,19 +52,23 @@ export function SiteHeader() {
               <Logo className="mb-6 h-16" />
               <nav className="flex flex-col gap-1" aria-label="Mobile">
                 {NAV.map((n) => (
-                  <Link
+                  <NavLink
                     key={n.to}
                     to={n.to}
                     onClick={() => setOpen(false)}
-                    activeOptions={{ exact: n.to === "/" }}
-                    className="rounded-md px-3 py-3 font-medium hover:bg-muted data-[status=active]:bg-secondary data-[status=active]:text-primary-deep"
+                    end={n.to === "/"}
+                    className={({ isActive }) =>
+                      `rounded-md px-3 py-3 font-medium hover:bg-muted ${isActive ? "bg-secondary text-primary-deep" : ""}`
+                    }
                   >
                     {n.label}
-                  </Link>
+                  </NavLink>
                 ))}
               </nav>
               <Button asChild className="mt-6 w-full">
-                <Link to="/contact" onClick={() => setOpen(false)}>Send an Enquiry</Link>
+                <Link to="/contact" onClick={() => setOpen(false)}>
+                  Send an Enquiry
+                </Link>
               </Button>
             </SheetContent>
           </Sheet>

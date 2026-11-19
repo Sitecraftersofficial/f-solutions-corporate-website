@@ -1,4 +1,4 @@
-# F-Solutions Corporate Website
+﻿# F-Solutions Corporate Website
 
 # F-SOLUTIONS LTD. COMPLETE WEBSITE DEVELOPMENT PROMPT
 
@@ -70,7 +70,7 @@ Use the other photographs I supply in appropriate sections of the website. Selec
 
 Do not use unrelated stock photographs when relevant company images have been supplied.
 
-Remove all Lovable branding, default logos, placeholder images, and template content.
+Remove all default platform branding, logos, placeholder images, and template content.
 
 The website must look like a real company's official website, not an unfinished template.
 
@@ -540,7 +540,7 @@ Create the initial administrator account using these exact credentials:
 
 I want to use these credentials myself to log in and inspect the admin dashboard.
 
-Do not ask Lovable to generate a different password.
+Do not ask for a different password.
 
 Do not merely display these credentials on the login page. Actually create and configure the administrator account in the authentication backend, assign the appropriate administrator role, and make sure the credentials work.
 
@@ -775,7 +775,7 @@ Do not automatically translate technical product information in a way that could
 
 ## 16. IMPORTANT DEVELOPMENT INSTRUCTIONS
 
-Before building, inspect the existing Lovable project and understand its current structure, routes, database, authentication, and storage configuration.
+Before building, inspect the existing project and understand its current structure, routes, database, authentication, and storage configuration.
 
 Preserve working features and existing infrastructure where possible.
 
@@ -785,7 +785,7 @@ Build the complete website, not just a homepage mockup.
 
 Make sure all navigation links, buttons, forms, filters, product pages, and administrator functions work.
 
-Remove all default Lovable branding and placeholder content.
+Remove all default platform branding and placeholder content.
 
 Use the actual F-Solutions company information and supplied images.
 
@@ -854,23 +854,20 @@ The company motto must remain central to the brand:
 
 Build this as a real, usable, scalable company website that F-Solutions Ltd can use to present its business professionally in Rwanda and prepare for future growth across East Africa.
 
-This project was built with [Lovable](https://lovable.dev).
-
-## Build with Lovable
-
-Continue developing this project in the [Lovable editor](https://lovable.dev/projects/7c997bbd-aaac-434d-80f9-c01ab748d6e5).
-
-- **Ship faster**: describe what you want to build and Lovable handles the code.
-- **Stay in sync**: every change made in Lovable is committed straight to this repository.
-- **Full ownership**: this code is yours. Push to `main` on GitHub and your changes sync back into Lovable, ready for your next prompt.
-
 ## Development
 
-Prefer working locally? You need Node.js and npm — [install with nvm](https://github.com/nvm-sh/nvm#installing-and-updating).
+You need Node.js 20.19+ or 22.12+ and npm.
 
 ```sh
-git clone <this-repository-url>
-cd <repository-name>
-npm i
+npm install
 npm run dev
 ```
+
+Build and preview the production site:
+
+```sh
+npm run build
+npm run preview
+```
+
+Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env.local` to connect the application to Supabase.

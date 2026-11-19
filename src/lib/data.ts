@@ -1,6 +1,6 @@
-import { queryOptions } from "@tanstack/react-query";
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/browser";
 import type { Database } from "@/integrations/supabase/types";
+import type { CachedQuery } from "@/lib/query";
 
 export type Division = "human_health" | "agrovet";
 export type Product = Database["public"]["Tables"]["products"]["Row"];
@@ -29,89 +29,105 @@ export const CONTENT_DEFAULTS: Record<string, string> = {
   contact_location: "Kigali, Rwanda",
 };
 
-export const contentQuery = queryOptions({
-  queryKey: ["site_content"],
-  queryFn: async () => {
-    const { data, error } = await supabase.from("site_content").select("key,value");
+export const contentQuery: CachedQuery<Record<string, string>> = {
+  key: "site_content",
+  queryFn: async (signal) => {
+    const { data, error } = await supabase
+      .from("site_content")
+      .select("key,value")
+      .abortSignal(signal);
     if (error) throw error;
     const map: Record<string, string> = { ...CONTENT_DEFAULTS };
     for (const r of data ?? []) if (r.value !== "" || !(r.key in map)) map[r.key] = r.value;
     return map;
   },
   staleTime: 60_000,
-});
+};
 
-export const categoriesQuery = queryOptions({
-  queryKey: ["categories"],
-  queryFn: async () => {
-    const { data, error } = await supabase.from("categories").select("*").order("sort_order");
+export const categoriesQuery: CachedQuery<Category[]> = {
+  key: "categories",
+  queryFn: async (signal) => {
+    const { data, error } = await supabase
+      .from("categories")
+      .select("*")
+      .order("sort_order")
+      .abortSignal(signal);
     if (error) throw error;
     return data;
   },
-});
+};
 
-export const animalsQuery = queryOptions({
-  queryKey: ["animal_types"],
-  queryFn: async () => {
-    const { data, error } = await supabase.from("animal_types").select("*").order("sort_order");
+export const animalsQuery: CachedQuery<AnimalType[]> = {
+  key: "animal_types",
+  queryFn: async (signal) => {
+    const { data, error } = await supabase
+      .from("animal_types")
+      .select("*")
+      .order("sort_order")
+      .abortSignal(signal);
     if (error) throw error;
     return data;
   },
-});
+};
 
 const PRODUCT_SELECT = "*, categories(id,name,slug), product_animals(animal_type_id)";
 
 export const productsQuery = (division?: Division) =>
-  queryOptions({
-    queryKey: ["products", "public", division ?? "all"],
-    queryFn: async () => {
+  ({
+    key: `products:public:${division ?? "all"}`,
+    queryFn: async (signal) => {
       let q = supabase.from("products").select(PRODUCT_SELECT).eq("published", true).order("name");
       if (division) q = q.eq("division", division);
-      const { data, error } = await q;
+      const { data, error } = await q.abortSignal(signal);
       if (error) throw error;
       return data as unknown as ProductWithRefs[];
     },
-  });
+  }) satisfies CachedQuery<ProductWithRefs[]>;
 
 export const productBySlugQuery = (slug: string) =>
-  queryOptions({
-    queryKey: ["product", slug],
-    queryFn: async () => {
+  ({
+    key: `product:${slug}`,
+    queryFn: async (signal) => {
       const { data, error } = await supabase
         .from("products")
         .select(PRODUCT_SELECT)
         .eq("slug", slug)
+        .abortSignal(signal)
         .maybeSingle();
       if (error) throw error;
       return data as unknown as ProductWithRefs | null;
     },
-  });
+  }) satisfies CachedQuery<ProductWithRefs | null>;
 
-export const partnersQuery = queryOptions({
-  queryKey: ["partners", "public"],
-  queryFn: async () => {
+export const partnersQuery: CachedQuery<Partner[]> = {
+  key: "partners:public",
+  queryFn: async (signal) => {
     const { data, error } = await supabase
       .from("partners")
       .select("*")
       .eq("visible", true)
-      .order("sort_order");
+      .order("sort_order")
+      .abortSignal(signal);
     if (error) throw error;
     return data;
   },
-});
+};
 
-export const complianceDocsQuery = queryOptions({
-  queryKey: ["compliance_documents", "public"],
-  queryFn: async () => {
+export const complianceDocsQuery: CachedQuery<
+  Database["public"]["Tables"]["compliance_documents"]["Row"][]
+> = {
+  key: "compliance_documents:public",
+  queryFn: async (signal) => {
     const { data, error } = await supabase
       .from("compliance_documents")
       .select("*")
       .eq("visible", true)
-      .order("created_at", { ascending: false });
+      .order("created_at", { ascending: false })
+      .abortSignal(signal);
     if (error) throw error;
     return data;
   },
-});
+};
 
 export function slugify(s: string) {
   return s

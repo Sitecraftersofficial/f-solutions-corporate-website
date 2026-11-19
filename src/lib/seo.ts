@@ -1,13 +1,11 @@
-export function seo(title: string, description: string) {
-  const t = `${title} | F-Solutions Ltd`;
-  return {
-    meta: [
-      { title: t },
-      { name: "description", content: description },
-      { property: "og:title", content: t },
-      { property: "og:description", content: description },
-      { property: "og:type", content: "website" },
-      { name: "twitter:card", content: "summary_large_image" },
-    ],
-  };
+import { useEffect } from "react";
+
+export function useSeo(title: string, description: string) {
+  useEffect(() => {
+    const fullTitle = `${title} | F-Solutions Ltd`;
+    document.title = fullTitle;
+    document.querySelector('meta[name="description"]')?.setAttribute("content", description);
+    document.querySelector('meta[property="og:title"]')?.setAttribute("content", fullTitle);
+    document.querySelector('meta[property="og:description"]')?.setAttribute("content", description);
+  }, [title, description]);
 }

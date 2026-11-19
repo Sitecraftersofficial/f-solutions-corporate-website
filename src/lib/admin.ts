@@ -1,4 +1,4 @@
-import { supabase } from "@/integrations/supabase/client";
+import { supabase } from "@/integrations/supabase/browser";
 
 const TEN_YEARS = 60 * 60 * 24 * 365 * 10;
 
@@ -13,7 +13,9 @@ export async function uploadMedia(file: File, folder = "uploads") {
   if (error) throw error;
   const { data, error: e2 } = await supabase.storage.from("media").createSignedUrl(path, TEN_YEARS);
   if (e2 || !data) throw e2 ?? new Error("Could not create file link");
-  const record = await supabase.from("media").insert({ name: file.name, url: data.signedUrl, path });
+  const record = await supabase
+    .from("media")
+    .insert({ name: file.name, url: data.signedUrl, path });
   if (record.error) throw record.error;
   return { url: data.signedUrl, path };
 }

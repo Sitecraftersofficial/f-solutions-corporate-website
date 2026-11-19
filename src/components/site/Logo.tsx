@@ -1,11 +1,11 @@
-import { useQuery } from "@tanstack/react-query";
+import { useCachedData } from "@/lib/query";
 import logoAsset from "@/assets/fsolutions-logo.jpg.asset.json";
 import { contentQuery } from "@/lib/data";
 import { cn } from "@/lib/utils";
 
 /** Official F-Solutions logo; admins can replace it via Website Content (logo_url). */
 export function Logo({ className }: { className?: string }) {
-  const { data } = useQuery(contentQuery);
+  const { data } = useCachedData(contentQuery);
   const src = data?.logo_url || logoAsset.url;
   return (
     <img
