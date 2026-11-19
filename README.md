@@ -879,7 +879,3 @@ Build and preview the production site:
 npm run build
 npm run preview
 ```
-
-Set `VITE_SUPABASE_URL` and `VITE_SUPABASE_PUBLISHABLE_KEY` in `.env.local` to connect the application to Supabase.
-
-For Netlify deployments, add both variables in the site's environment variable settings and redeploy. These are public client configuration values; never expose a Supabase service-role key through a `VITE_` variable.
