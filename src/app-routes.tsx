@@ -17,6 +17,11 @@ import { DocumentsAdminPage } from "@/routes/_authenticated/admin.documents";
 import { PartnersAdminPage } from "@/routes/_authenticated/admin.partners";
 import { ProductsAdminPage } from "@/routes/_authenticated/admin.products";
 import { NotFoundPage } from "@/routes/not-found";
+import { EnquiriesAdminPage } from "@/routes/_authenticated/admin.enquiries";
+import { ContentAdminPage } from "@/routes/_authenticated/admin.content";
+import { MediaAdminPage } from "@/routes/_authenticated/admin.media";
+import { ActivityAdminPage } from "@/routes/_authenticated/admin.activity";
+import { SettingsAdminPage } from "@/routes/_authenticated/admin.settings";
 
 export const appRoutes: RouteObject[] = [
   {
@@ -43,6 +48,11 @@ export const appRoutes: RouteObject[] = [
       { path: "animals", element: <AnimalsAdminPage /> },
       { path: "partners", element: <PartnersAdminPage /> },
       { path: "documents", element: <DocumentsAdminPage /> },
+      { path: "enquiries", element: <EnquiriesAdminPage /> },
+      { path: "content", element: <ContentAdminPage /> },
+      { path: "media", element: <MediaAdminPage /> },
+      { path: "activity", element: <ActivityAdminPage /> },
+      { path: "settings", element: <SettingsAdminPage /> },
     ],
   },
   { path: "*", element: <NotFoundPage /> },
